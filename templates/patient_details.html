@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Details - Heart Risk Predictor</title>
+</head>
+<body>
+    <h1>Heart Disease Risk Level Predictor</h1>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul style="color: red;">
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    {% if not has_model %}
+      <p style="color:orange">Model not found. Upload it <a href="{{ url_for('upload_model') }}">here</a> or place `heart_risk_prediction_regression_model.sav` in the `models/` directory.</p>
+    {% endif %}
+
+    <form action="{{ url_for('getresults') }}" method="POST">
+        <p>Name <input type="text" name="name" /></p>
+
+        <p>Gender
+            <select name="gender">
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+            </select>
+        </p>
+
+        <p>Age <input type="number" name="age" min="0" step="1" required /></p>
+        <p>TC (mg/dL) <input type="number" name="tc" step="0.01" required /></p>
+        <p>HDL (mg/dL) <input type="number" name="hdl" step="0.01" required /></p>
+  <!-- SBP was not used in the model trained in Colab (model uses 7 features). Remove or keep for informational purposes only. -->
+  <!-- If you want to keep SBP in the form, it will not be sent to the model. -->
+
+        <p>Smoke
+            <select name="smoke">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </p>
+
+        <p>Blood Pressure Medication (0 - No, 1 - Yes) <input type="number" name="bpm" min="0" max="1" step="1" required /></p>
+
+        <p>Diabetics
+            <select name="diab">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+            </select>
+        </p>
+
+        <p><input type="submit" value="Submit Details" /></p>
+    </form>
+
+    <hr/>
+    <p>If you trained the model in Google Colab, download `heart_risk_prediction_regression_model.sav` from Colab and put it into the `models/` folder or use the upload page.</p>
+</body>
+</html>
