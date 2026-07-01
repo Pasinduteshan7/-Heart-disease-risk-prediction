@@ -1,8 +1,4 @@
-Here is a clean, well-organized, and professionally formatted `README.md` ready to be copied and pasted directly into your GitHub repository.
 
-I have added standard GitHub badges, clean Markdown typography, and clear code formatting to give it an open-source production-ready look.
-
----
 
 ```markdown
 # Heart Risk Predictor (Flask)
